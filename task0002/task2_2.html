@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    input{
+        width:50px;
+    }
+</style>
+<body>
+    <div box>
+        <div id="now">现在是：</div>
+        <div id="future">距离<input value="XX"/>年<input value="XX"/>月<input value="XX"/>日</div>
+        <button id="btn" >还有</button>
+        <div id="minus"><span>XX</span>年<span>XX</span>月<span>XX</span>日
+            <!--<span>XX</span>时<span>XX</span>分<span>XX</span>秒</div>-->
+    </div>
+    <script type="text/javascript" src="scripts/util.js"></script>
+<script>
+    //自动更新时间
+    setInterval(function () {
+        day=new Date();
+        $("#now").innerHTML="现在是："+day;
+    },1000);
+
+    //绑定事件
+    addEvent($("input")[0],"focus",default1);
+    addEvent($("input")[1],"focus",default1);
+    addEvent($("input")[2],"focus",default1);
+    addEvent($("input")[0],"blur",default2);
+    addEvent($("input")[1],"blur",default2);
+    addEvent($("input")[2],"blur",default2);
+
+    //默认提示
+    function default1(){
+            if(this.value=='XX'){
+                this.value='';
+            }
+    }
+    function default2(){
+        if(this.value==''){
+            this.value='XX';
+        }
+    }
+
+    //本来想省点事用事件代理的，结果focus、blur不支持冒泡，ie又不支持捕获，focusin、focusout支持事件冒泡，结果不仅要浏览器兼容，还要分别写两个（focus、blur）。不如直接addEvent
+//    delegateEvent2($("#future"),"input","focus",default1);
+//    delegateEvent3($("#future"),"input","blur",default1);
+    addEvent($('#btn'),'click',function(){
+        var nDay=day.getDate(),
+                nMonth=day.getMonth()+1,
+                nYear=day.getFullYear(),
+                fDay=$("input")[2].value-1,
+                fMonth=$("input")[1].value,
+                fYear=$("input")[0].value;
+        if(fDay<nDay){
+            $("span")[2].innerHTML=fDay-nDay+30;
+            fMonth--;
+        }
+        else{
+            $("span")[2].innerHTML=fDay-nDay;
+        }
+        if(fMonth<nMonth){
+            $("span")[1].innerHTML=fMonth-nMonth+12;
+            fYear--;
+        }
+        else{
+            $("span")[1].innerHTML=fMonth-nMonth;
+        }if(fYear<nYear){
+            $("span")[0].innerHTML='XX';
+            $("span")[1].innerHTML='XX';
+            $("span")[2].innerHTML='XX';
+            alert('请重新输入!');
+        }
+        else{
+            $("span")[0].innerHTML=fYear-nYear;
+        }
+    })
+</script>
+</body>
+</html>

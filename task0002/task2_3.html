@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            list-style-type: none;
+            margin:0;
+            padding:0;
+        }
+        #func{
+            width:300px;
+            height:300px;
+        }
+        #box{
+            overflow:hidden;
+            width: 300px;
+            height:204px;
+            position:relative;
+        }
+        #img{
+            width:1200px;
+            height:204px;
+            position: absolute;
+        }
+        #img img{
+            width: 300px;
+            float:left;
+        }
+        #num{
+            position:absolute;
+            left:110px;
+            bottom:5px;
+        }
+        #num li{
+            float:left;
+            padding:5px;
+            cursor: pointer;
+        }
+        #loop{
+            margin-left:20px;
+        }
+        #sec{
+            width:40px;
+        }
+    </style>
+</head>
+<body>
+<div id="func">
+    <select>
+        <option>正序</option>
+        <option>逆序</option>
+    </select>
+    <input  id="loop" type="checkbox" value="循环"/><label>循环</label>
+    <label>间隔时长</label>
+    <input id="sec"  type="date"/>
+    <button id="confirm">confirm</button>
+    <div id="box">
+        <div id="img">
+            <ul>
+                <li><img alt="pig" src="images/task2_3images/pig.png"/> </li>
+                <li><img alt="flower" src="images/task2_3images/flower.png"/> </li>
+                <li><img alt="food" src="images/task2_3images/food.png"/> </li>
+                <li><img alt="lamp" src="images/task2_3images/lamp.jpg"/> </li>
+            </ul>
+        </div>
+        <ul id="num">
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
+    </div>
+</div>
+    <script type="text/javascript" src="scripts/util.js"></script>
+<script>
+//默认正序
+// 数字与图片相对应
+ul = $("#num");
+numLi = ul.getElementsByTagName("li");
+i = 0;
+c=0;
+sec=1;
+total();
+function total(){
+addEvent($("#confirm"),'click', function () {
+    if($("#sec").value!=sec){
+    sec=$("#sec").value;
+    clearInterval(set);
+    total();
+    return false;
+    }
+});
+if($('option')[0].selected==true) {
+    $("#img").style.left = 0 + 'px';
+    numLi[i].style.color = 'white';
+    var set=setInterval(function () {
+        var l = $("#img").style.left;
+        if (parseInt(l) >= (-600)) {
+            i = i + 1;
+            for (c = 0; c < numLi.length; c++) {
+                numLi[c].style.color = 'black';
+            }
+            $("#img").style.left = (-300) * i + 'px';
+            numLi[i].style.color = 'white';
+        }
+        else {
+            if($("#loop").checked==true) {
+                $("#img").style.left = 0 + 'px';
+                for (c = 0; c < numLi.length; c++) {
+                    numLi[c].style.color = 'black';
+                }
+                i = 0;
+                numLi[i].style.color = 'white';
+            }
+        }
+    }, 1000*sec);
+//    点击数字出现相对应图片
+    delegateEvent(ul, 'li', 'click', function (target) {
+        i = target.innerHTML - 1;
+        $("#img").style.left = (-300) * i + 'px';
+        for (c = 0; c < numLi.length; c++) {
+            numLi[c].style.color = 'black';
+        }
+        numLi[i].style.color = 'white';
+    })
+}
+//    逆序
+if($('option')[1].selected==true) {
+            i = 3;
+    $("#img").style.left = (-300) * 3 + 'px';
+    for (c = 0; c < numLi.length; c++) {
+        numLi[c].style.color = 'black';
+    }
+    numLi[3].style.color = 'white';
+    set=setInterval(function () {
+        var l = $("#img").style.left;
+        if (parseInt(l) <= (-300)) {
+            i = i - 1;
+            for (c = 0; c < numLi.length; c++) {
+                numLi[c].style.color = 'black';
+            }
+            numLi[i].style.color = 'white';
+            $("#img").style.left = ((-300) * i) + 'px';
+        }
+        else {
+            $("#img").style.left = (-900) + 'px';
+            for (c = 0; c < numLi.length; c++) {
+                numLi[c].style.color = 'black';
+            }
+            i = 3;
+            numLi[i].style.color = 'white';
+        }
+    }, 1000*sec);
+//    点击数字出现相对应图片
+    delegateEvent(ul, 'li', 'click', function (target) {
+        i = target.innerHTML - 1;
+        $("#img").style.left = (-300) * i + 'px';
+        for (c = 0; c < numLi.length; c++) {
+            numLi[c].style.color = 'black';
+        }
+        numLi[i].style.color = 'white';
+    })
+}
+}
+</script>
+</body>
+</html>

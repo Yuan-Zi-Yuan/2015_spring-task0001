@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #box{
+            position:relative;
+        }
+        #left div,#right div{
+            background:white;
+            width:200px;
+            height:50px;
+            border:1px solid black;
+            position:absolute;
+        }
+        #right div{
+            left:1130px;
+        }
+        #left div{
+            left:1px;
+        }
+        #left{
+            float:left;
+            width:202px;
+            height:400px;
+            border:1px solid black;
+        }
+        #right{
+            float:right;
+            width:202px;
+            height:400px;
+            border:1px solid black;
+        }
+        .test2{
+            color:white;
+        }
+    </style>
+</head>
+<body>
+<div class="test2" id="box">
+    <div id="left">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+    </div>
+    <div id="right">
+        <div>5</div>
+        <div>6</div>
+        <div>7</div>
+    </div>
+</div>
+<script src="scripts/util.js"></script>
+<script>
+    getTop();
+//    javascript定义css样式
+    function getTop(){
+        var l=$('#left').getElementsByTagName('div');
+        var r=$('#right').getElementsByTagName('div');
+        for(var i=0;i< l.length;i++){
+            l[i].style.top=i*50+'px';
+            l[i].style.left=1+'px';
+        }
+        for(var i=0;i< r.length;i++){
+            r[i].style.top=i*50+'px';
+            r[i].style.left=1130+'px';
+        }
+    }
+//    事件代理 #left 的mousedown事件
+    delegateEvent($("#left"),"div",'mousedown', function (target,e) {
+                posX= e.clientX- target.offsetLeft,
+                posY= e.clientY- target.offsetTop;
+//        onmousemove事件会更新clientX，不会更新offsetLeft，所以先取得鼠标离target边框的posX和posY
+        target.onmousemove= function (e) {
+            e=e||window.event;
+            target.style.left= (e.clientX-posX)+'px';
+            target.style.top= (e.clientY-posY)+'px';
+        };
+//        判断松开时的坐标，并定义其坐标
+        target.onmouseup=function(e){
+            target.onmousemove=null;
+            e=e||window.event;
+            target.style.left= (e.clientX-posX)+'px';
+            target.style.top= (e.clientY-posY)+'px';
+            target.onmouseup=null;
+            if(e.clientX>=620){
+                var lastTop=$('#right').getElementsByTagName("div").length*50;
+                var lastLeft=1130+'px';
+                $("#left").removeChild(target);
+                $('#right').appendChild(target);
+                target.style.left= lastLeft;
+                target.style.top= lastTop+'px';
+            }
+            else{
+                $("#left").removeChild(target);
+                $('#left').appendChild(target);
+                target.style.left= orginX;
+                target.style.top= orginY;
+            }
+        };
+//        var clone=cloneObject(target);
+//        $("#left").removeChild(target);
+//        $('#right').appendChild(target);
+    })
+    //    事件代理 #right 的mousedown事件
+    delegateEvent($("#right"),"div",'mousedown', function (target,e) {
+        posX= e.clientX- target.offsetLeft,
+                posY= e.clientY- target.offsetTop;
+//        onmousemove事件会更新clientX，不会更新offsetLeft，所以先取得鼠标离target边框的posX和posY
+        target.onmousemove= function (e) {
+            e=e||window.event;
+            target.style.left= (e.clientX-posX)+'px';
+            target.style.top= (e.clientY-posY)+'px';
+        };
+//        判断松开时的坐标，并定义其坐标
+        target.onmouseup=function(e){
+            target.onmousemove=null;
+            e=e||window.event;
+            target.style.left= (e.clientX-posX)+'px';
+            target.style.top= (e.clientY-posY)+'px';
+            target.onmouseup=null;
+            if(e.clientX<=620){
+                var lastTop=$('#left').getElementsByTagName("div").length*50;
+                var lastLeft=1+'px';
+                $("#right").removeChild(target);
+                $('#left').appendChild(target);
+                target.style.left= lastLeft;
+                target.style.top= lastTop+'px';
+            }
+            else{
+                $("#right").removeChild(target);
+                $('#right').appendChild(target);
+                target.style.left= orginX;
+                target.style.top= orginY;
+            }
+        };
+//        var clone=cloneObject(target);
+//        $("#left").removeChild(target);
+//        $('#right').appendChild(target);
+    })
+</script>
+</body>
+</html>

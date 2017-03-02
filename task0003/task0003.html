@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    *{
+        box-sizing: border-box;
+        margin:0;
+        padding:0;
+    }
+    .frame{
+        width:362px;
+        height:342px;
+        margin:0 auto;
+        border:solid 1px red;
+    }
+    .square{
+        width:302px;
+        height:291px;
+        border:solid 1px #000;
+        margin:0 auto;
+    }
+    span{
+        width:30px;
+        height:30px;
+        line-height:30px;
+        margin-right:-8px;
+        display:inline-block;
+        text-align:center;
+    }
+    .row-line{
+        height:30px;
+        width:300px;
+        border-top: 1px solid grey;
+        border-bottom: 1px solid grey;
+        margin:28px 0;
+    }
+</style>
+<body>
+<div class="frame">
+    <div class="row">
+    <span style="margin-left:30px;">1</span>
+    <span style="">2</span>
+    <span style="">3</span>
+    <span style="">4</span>
+    <span style="">5</span>
+    <span style="">6</span>
+    <span style="">7</span>
+    <span style="">8</span>
+    <span style="">9</span>
+    <span style="">10</span>
+    </div>
+    <div class="column" style="float:left;width:20px;">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+        <span>7</span>
+        <span>8</span>
+        <span>9</span>
+        <span>10</span>
+    </div>
+    <div class="square">
+        <div class="row-line"></div>
+        <div class="row-line"></div>
+        <div class="row-line"></div>
+        <div class="row-line"></div>
+        <div class="row-line" style="border-bottom:1px solid #000;"></div>
+    </div>
+</div>
+</body>
+</html>

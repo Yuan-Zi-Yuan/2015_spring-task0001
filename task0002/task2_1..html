@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #show{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+兴趣爱好: <br>
+<textarea id="ipt" type="text" name="兴趣爱好" ></textarea>
+<br>
+<button id="btn" value="提交">提交</button>
+<div id="show">show</div>
+<script type="text/javascript" src="scripts/util.js" ></script>
+<script>
+    addEvent($("#btn"),"click",becomeArr);
+    function becomeArr(){
+        var arr=$("#ipt").value,
+                l,
+                re=/(^\s+)|(\s+$)/;
+        console.log(arr.length);
+        arr=arr.replace(/ /g,'').replace(/\s+/,' ').split(/\s|,|;|\.|。|、| ;|，/);//去除首尾空格，根据间隔符进行分组
+        console.log(arr);
+        l=arr.length;
+        console.log(l);
+        if(l==1&&arr==""){
+            alert("请输入!")
+        }
+        else{
+            $("#show").style.display="block";
+            $("#show").innerHTML=arr;
+        }
+    }
+</script>
+</body>
+</html>
