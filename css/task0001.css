@@ -1,0 +1,47 @@
+@charset "utf-8";
+@font-face {
+    font-family: "SingleMalta";
+    src: url("../字体/SingleMalta.ttf");
+}
+#accountname{
+    color:blue;
+}
+#sec{
+    font-size:14px;
+}
+#para1{
+    font-size: 12px;
+    color:yellow;
+    background-color: black;
+    text-indent: 30px;
+}
+#para2{
+    text-align: center;
+    word-spacing: 10px;
+    white-space: pre;
+    color:black;
+    line-height:30px;
+    font-family:SingleMalta;
+    font-size:20px;
+    font-weight:bold;
+}
+#img1{
+    border: solid red 2px;
+}
+#up li{
+    text-transform: capitalize;
+    text-decoration:line-through ;
+}
+#A{
+    position:absolute;
+    top:190px;
+    right:203px;
+    background-color: red;
+    width:960px;
+    height:300px;
+}
+#B{
+
+    background-color: red;
+    width:960px;
+}
